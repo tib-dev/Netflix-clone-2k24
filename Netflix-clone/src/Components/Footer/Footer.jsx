@@ -2,18 +2,26 @@ import React from "react";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import "./footer.css";
+import styles from "./footer.module.css"; // Importing CSS module
 
 const Footer = () => {
   return (
-    <div className="footer_outer_container">
-      <div className="footer_inner_container">
-        <div className="footer_icons">
+    <div className={styles.footer_outer_container}>
+      {" "}
+      {/* Using CSS module */}
+      <div className={styles.footer_inner_container}>
+        {" "}
+        {/* Using CSS module */}
+        <div className={styles.footer_icons}>
+          {" "}
+          {/* Using CSS module */}
           <FacebookOutlinedIcon />
           <InstagramIcon />
           <YouTubeIcon />
         </div>
-        <div className="footer_data">
+        <div className={styles.footer_data}>
+          {" "}
+          {/* Using CSS module */}
           <div>
             <ul>
               <li>Audio Description</li>
@@ -43,10 +51,16 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="service_code">
+        <div className={styles.service_code}>
+          {" "}
+          {/* Using CSS module */}
           <p>Service Code</p>
         </div>
-        <div className="copy-write">&copy; 1997-2024 Netflix, Inc.</div>
+        <div className={styles.copy_write}>
+          {" "}
+          {/* Using CSS module */}
+          &copy; 1997-2024 Netflix, Inc.
+        </div>
       </div>
     </div>
   );

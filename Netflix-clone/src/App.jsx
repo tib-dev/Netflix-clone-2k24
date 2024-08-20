@@ -1,12 +1,12 @@
-import Header from "./Components/Header/Header";
-import Row from "./Components/Main/Row";
+import Home from "./Pages/Home";
 function App() {
   return (
-    <>
-      <Header />
-      <Row />
-    </>
+    <div >
+    <Home />
+  </div>
   );
 }
+
+ 
 
 export default App;
