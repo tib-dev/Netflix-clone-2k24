@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./row.module.css"; // Importing CSS module
-import axios from "../../../Utility/axios";
+import axiosInstance from "../../../Utility/axios";
 import movieTrailer from "movie-trailer";
 import YouTube from "react-youtube";
 
@@ -13,24 +13,32 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
   useEffect(() => {
     (async () => {
       try {
-        const request = await axios.get(fetchUrl);
+        const request = await axiosInstance.get(fetchUrl);
         setMovie(request.data.results);
       } catch (error) {
-        console.log("error", error);
+        console.error("Failed to fetch movies:", error);
+        // Optionally, you could set an error state to show a message in the UI
       }
     })();
   }, [fetchUrl]);
 
-  const handleClick = (movie) => {
+  const handleClick = async (movie) => {
     if (trailerUrl) {
       setTrailerUrl("");
     } else {
-      movieTrailer(movie?.title || movie?.name || movie?.original_name).then(
-        (url) => {
+      try {
+        const url = await movieTrailer(
+          movie?.title || movie?.name || movie?.original_name
+        );
+        if (url) {
           const urlParams = new URLSearchParams(new URL(url).search);
           setTrailerUrl(urlParams.get("v"));
+        } else {
+          console.warn("No trailer found for this movie.");
         }
-      );
+      } catch (error) {
+        console.error("Error fetching movie trailer:", error);
+      }
     }
   };
 
@@ -44,12 +52,8 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
 
   return (
     <div className={styles.row}>
-      {" "}
-      {/* Using CSS module */}
       <h1>{title}</h1>
       <div className={styles.row__posters}>
-        {" "}
-        {/* Using CSS module */}
         {movies?.map((movie, index) => (
           <img
             onClick={() => handleClick(movie)}
